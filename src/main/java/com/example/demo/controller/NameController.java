@@ -1,11 +1,16 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.GuestDto;
 import com.example.demo.model.NameModel;
 import com.example.demo.model.WelcomeResponse;
 import com.example.demo.service.NameService;
@@ -28,6 +33,17 @@ public class NameController {
 		} catch (Exception e) {
 			resp.setResp(e.getMessage());
 			return resp;
+		}
+		
+	}
+	
+	@GetMapping(value = "/welcome", produces = "application/json")
+	public List<GuestDto> listGuests() {
+
+		try {
+			return service.listGuests();
+		} catch (Exception e) {
+			return new ArrayList<>();
 		}
 		
 	}

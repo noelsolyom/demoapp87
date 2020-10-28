@@ -3,8 +3,6 @@ async function welcome() {
         'name' : document.getElementById('nameBox').value
     };
     
-    console.log(nameModel);
-    
     let response = await fetch('/welcome', {
         method: 'POST',
         headers: {
@@ -17,8 +15,34 @@ async function welcome() {
         let data = await response.json();
         alert(data.resp);
         document.getElementById('nameBox').value = '';
+        listGuests();
     } else {
         let error = await response.json();
         alert(error.message);
     }
 }
+
+async function listGuests() {
+	let list = document.getElementById('list');
+	list.innerHTML = '';
+    let response = await fetch('/welcome');
+    if (response.ok) {
+        let data = await response.json();
+        drawGuests(data);
+    } else {
+        let error = await response.json();
+        alert('error');
+    }
+}
+
+function drawGuests(guestList) {
+	let list = document.getElementById('list');
+	
+	for(i in guestList) {
+		let div = document.createElement('div');
+		div.innerHTML = guestList[i].id + ": " + guestList[i].name;
+		list.appendChild(div);
+	}
+}
+
+listGuests();
