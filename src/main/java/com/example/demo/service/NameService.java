@@ -31,7 +31,7 @@ public class NameService {
 		try {
 		GuestEntity newGuest = new GuestEntity();
 		newGuest.setName(name.getName());
-		newGuest.setDt(LocalDateTime.now());
+		newGuest.setDt(name.getDt());
 		newGuest.setIp(request.getRemoteAddr());
 		guestRepository.save(newGuest);
 		} catch (Exception e) {
@@ -41,7 +41,7 @@ public class NameService {
 	}
 	
 	public List<GuestDto> listGuests() {
-		Iterable<GuestEntity> guests = guestRepository.listGuests();
+		Iterable<GuestEntity> guests = guestRepository.findAll();
 		List<GuestEntity> guestList = new ArrayList<>();
 		guests.forEach(guestList::add);
 		

@@ -1,6 +1,7 @@
 async function welcome() {
     let nameModel = {
-        'name' : document.getElementById('nameBox').value
+        'name' : document.getElementById('nameBox').value,
+        'dt' : new Date()
     };
     
     let response = await fetch('/welcome', {
