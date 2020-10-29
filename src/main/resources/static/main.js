@@ -40,7 +40,7 @@ function drawGuests(guestList) {
 	
 	for(i in guestList) {
 		let div = document.createElement('div');
-		div.innerHTML = guestList[i].id + ": " + guestList[i].name;
+		div.innerHTML = guestList[i].id + ": " + guestList[i].name + ", on " + new Date(guestList[i].dt).toUTCString() + " from " + guestList[i].ip;
 		list.appendChild(div);
 	}
 }

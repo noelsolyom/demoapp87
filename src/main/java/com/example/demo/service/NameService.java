@@ -1,7 +1,10 @@
 package com.example.demo.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +20,7 @@ public class NameService {
 	@Autowired
 	GuestRepository guestRepository;
 
-	public String welcome(NameModel name) {
+	public String welcome(NameModel name, HttpServletRequest request) {
 		
 		if(name == null || name.getName() == null || name.getName().trim().equals("")) {
 			throw new IllegalArgumentException("Name must be set!");
@@ -28,6 +31,8 @@ public class NameService {
 		try {
 		GuestEntity newGuest = new GuestEntity();
 		newGuest.setName(name.getName());
+		newGuest.setDt(LocalDateTime.now());
+		newGuest.setIp(request.getRemoteAddr());
 		guestRepository.save(newGuest);
 		} catch (Exception e) {
 			throw e;
@@ -45,6 +50,8 @@ public class NameService {
 			GuestDto guestDto = new GuestDto();
 			guestDto.setId(g.getId());
 			guestDto.setName(g.getName());
+			guestDto.setDt(g.getDt());
+			guestDto.setIp(g.getIp());
 			guestResp.add(guestDto);
 		}
 		

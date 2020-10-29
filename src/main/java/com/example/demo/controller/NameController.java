@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,11 +25,11 @@ public class NameController {
 	NameService service;
 
 	@PostMapping(value = "/welcome", produces = "application/json")
-	public WelcomeResponse controller(@RequestBody NameModel name) {
+	public WelcomeResponse controller(@RequestBody NameModel name, HttpServletRequest request) {
 
 		WelcomeResponse resp = new WelcomeResponse();
 		try {
-		String s = service.welcome(name);
+		String s = service.welcome(name, request);
 		resp.setResp(s);
 		return resp;
 		} catch (Exception e) {
